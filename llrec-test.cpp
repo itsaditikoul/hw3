@@ -67,7 +67,17 @@ void dealloc(Node* head)
 //   function object struct declarations
 // -----------------------------------------------
 
+//eg remove odd numbers
+struct IsOdd {
+  bool operator() (int x) const {return (x%2)!=0; }
+};
 
+// eg remove<=K
+struct RemoveLE {
+  int k;
+  RemoveLE(int k_) : k(k_) {}
+  bool operator() (int x) const {return x<=k; }
+};
 
 
 
@@ -86,6 +96,26 @@ int main(int argc, char* argv[])
     print(head);
 
     // Test out your linked list code
+    
+    // eg filter odds and keep evens
+    cout << "Filter: remove odd numbers" << endl;
+    Node* evens = llfilter(head, IsOdd());
+    cout <<"Result list: "<< endl;
+    print (evens);
+
+    //clean result list from eg above
+    dealloc(evens);
+
+    //test another pred. on fresh list
+    head = readList(argv[1]);
+    cout<<"Original list again: "<<endl;
+    print(head);
+
+    cout<<"Filter: remove<=5" << endl;
+    Node* gt5 = llfilter(head, RemoveLE(5));
+    cout<<"return list: "<< endl;
+    print(gt5);
+    dealloc(gt5);
 
 
 

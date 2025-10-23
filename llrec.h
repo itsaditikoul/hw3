@@ -69,9 +69,25 @@ void llpivot(Node *&head, Node *&smaller, Node *&larger, int pivot);
  *   may change [i.e. be filtered])
  *
  */
-template <typename Comp>
-Node* llfilter(Node* head, Comp pred);
 
+ /*
+template <typename Comp>
+Node* llfilter(Node* head, Comp pred) {
+
+  if (!head) return nullptr;
+
+  Node* rest = llfilter(head->next, pred);
+
+  if(pred(head->val)) {
+    delete head;
+    return rest;
+  }
+  else {
+    head->next = rest;
+    return head;
+  }
+}
+*/
 //*****************************************************************************
 // Since template implementations should be in a header file, we will
 // implement the above function now.
@@ -83,6 +99,21 @@ Node* llfilter(Node* head, Comp pred)
     //*********************************************
     // Provide your implementation below
     //*********************************************
+
+    if (!head) {
+      return nullptr;
+    }
+
+    Node* rest   = llfilter ( head->next, pred);
+
+    if (pred(head->val)) {
+      delete head;
+      return rest;
+    }
+    else {
+      head -> next = rest;
+      return head;
+    }
 
 
 }
